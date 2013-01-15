@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.description = "DCI implementation in Ruby"
   s.authors     = ["Kendall Buchanan"]
   s.email       = 'kendall@teachbanzai.com'
-  s.files       = ["lib/perspective.rb"]
+  s.files       = Dir.glob("lib/**/*")
+  s.require_path = 'lib'
   s.homepage    = 'https://github.com/kendagriff/perspective'
 end
