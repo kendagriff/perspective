@@ -1,0 +1,37 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activesupport (3.2.11)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    ansi (1.4.3)
+    coderay (1.0.8)
+    i18n (0.6.1)
+    metaclass (0.0.1)
+    method_source (0.8.1)
+    minitest (4.4.0)
+    mocha (0.13.1)
+      metaclass (~> 0.0.1)
+    multi_json (1.5.0)
+    pry (0.9.10)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.3.1)
+    pry-nav (0.2.3)
+      pry (~> 0.9.10)
+    rake (10.0.3)
+    slop (3.3.3)
+    turn (0.9.6)
+      ansi
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activesupport
+  minitest
+  mocha
+  pry
+  pry-nav
+  rake
+  turn
