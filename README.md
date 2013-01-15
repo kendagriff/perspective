@@ -1,6 +1,6 @@
 # Perspective
 
-Providing a little DCI perspective for Ruby
+Providing an attractive DSL for implementing DCI in Ruby.
 
 ## Usage
 
