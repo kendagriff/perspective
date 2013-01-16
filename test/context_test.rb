@@ -13,6 +13,13 @@ module Perspective
     end
   end
 
+  module VeryHumbleAttitude
+    def speak
+      super
+      puts "Yes, yes, yes, sir, I am."
+    end
+  end
+
   class ApplyForJob < Context
     actors :interviewer, :interviewee
 
@@ -22,6 +29,7 @@ module Perspective
     end
 
     def interview
+      cast @interviewee, VeryHumbleAttitude
       @interviewer.speak
       @interviewee.speak
     end
@@ -29,7 +37,7 @@ module Perspective
 
   class ContextTest < ActiveSupport::TestCase
     test "set up context" do
-      STDOUT.expects(:puts).times(2)
+      STDOUT.expects(:puts).times(3)
       ApplyForJob.interview(interviewer: mock, interviewee: mock)
     end
   end

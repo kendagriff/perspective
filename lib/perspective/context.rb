@@ -9,7 +9,11 @@ module Perspective
     end
 
     def cast(actor, role)
-      instance_variable_get("@#{actor}").extend role
+      if actor.is_a?(Symbol)
+        cast_as instance_variable_get("@#{actor}"), role
+      else
+        cast_as actor, role
+      end
     end
 
     def initialize(actors={})
@@ -35,6 +39,12 @@ module Perspective
       else
         super
       end
+    end
+
+    private
+
+    def cast_as(actor, role)
+      actor.extend role
     end
   end
 end
