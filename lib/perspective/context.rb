@@ -1,5 +1,9 @@
 module Perspective
   class Context
+    def acts(*acts)
+      actors.each { |actor| instance_variable_set("@#{actor}", nil) }
+    end
+
     def self.actors(*actors)
       actors.each { |actor| instance_variable_set("@#{actor}", nil) }
     end
@@ -10,7 +14,6 @@ module Perspective
 
     def initialize(actors={})
       actors.each { |actor| instance_variable_set("@#{actor[0]}", actor[1]) }
-      setup
     end
 
     def self.setup(&block)
@@ -22,8 +25,16 @@ module Perspective
       instance_eval(&self.class.setup) if self.class.setup.is_a?(Proc)
     end
 
-    def self.call(actors={})
-      new(actors).call
+    # Allow class methods defined by the client
+    # to be passed to an instance method, with setup
+    def self.method_missing(name, *args, &block)
+      if self.instance_methods(false).include?(name) 
+        context = new(args[0])
+        context.setup
+        context.send(name)
+      else
+        super
+      end
     end
   end
 end

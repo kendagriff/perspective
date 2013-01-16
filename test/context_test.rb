@@ -21,7 +21,7 @@ module Perspective
       cast :interviewee, HumbleAttitude
     end
 
-    def call
+    def interview
       @interviewer.speak
       @interviewee.speak
     end
@@ -29,9 +29,8 @@ module Perspective
 
   class ContextTest < ActiveSupport::TestCase
     test "set up context" do
-      interviewer = mock
-      interviewee = mock
-      ApplyForJob.call(interviewer: interviewer, interviewee: interviewee)
+      STDOUT.expects(:puts).times(2)
+      ApplyForJob.interview(interviewer: mock, interviewee: mock)
     end
   end
 end
