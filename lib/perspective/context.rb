@@ -4,16 +4,22 @@ module Perspective
       actors.each { |actor| instance_variable_set("@#{actor}", nil) }
     end
 
-    def self.setup
-      yield
-    end
-
-    def self.cast(actor, role)
+    def cast(actor, role)
       instance_variable_get("@#{actor}").extend role
     end
 
     def initialize(actors={})
       actors.each { |actor| instance_variable_set("@#{actor[0]}", actor[1]) }
+      setup
+    end
+
+    def self.setup(&block)
+      @setup = block if block_given?
+      @setup
+    end
+
+    def setup
+      instance_eval(&self.class.setup) if self.class.setup.is_a?(Proc)
     end
 
     def self.call(actors={})

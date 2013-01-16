@@ -30,9 +30,7 @@ module Perspective
   class ContextTest < ActiveSupport::TestCase
     test "set up context" do
       interviewer = mock
-      interviewer.expects(:speak).returns("Are you any good?!?")
       interviewee = mock
-      interviewee.expects(:speak).returns("Yes, sir, I am.")
       ApplyForJob.call(interviewer: interviewer, interviewee: interviewee)
     end
   end
