@@ -40,5 +40,9 @@ module Perspective
       STDOUT.expects(:puts).times(3)
       ApplyForJob.interview(interviewer: mock, interviewee: mock)
     end
+
+    test "respond to" do
+      assert ApplyForJob.respond_to?(:interview)
+    end
   end
 end

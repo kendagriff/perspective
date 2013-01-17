@@ -41,6 +41,14 @@ module Perspective
       end
     end
 
+    def self.respond_to?(name)
+      if self.instance_methods(false).include?(name)
+        true
+      else
+        super
+      end
+    end
+
     private
 
     def cast_as(actor, role)
