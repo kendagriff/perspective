@@ -23,6 +23,10 @@ module Perspective
   class ApplyForJob < Context
     actors :interviewer, :interviewee
 
+    stage do
+      @interviewer = "Jimmy Page"
+    end
+
     setup do
       cast :interviewer, AngryAttitude
       cast :interviewee, HumbleAttitude
@@ -36,6 +40,10 @@ module Perspective
 
     def no_interview
       true
+    end
+
+    def interviewer_name
+      @interviewer
     end
   end
 
@@ -51,6 +59,10 @@ module Perspective
 
     test "no actor provided" do
       assert ApplyForJob.no_interview
+    end
+
+    test "stage" do
+      assert_equal 'Jimmy Page', ApplyForJob.interviewer_name
     end
   end
 end

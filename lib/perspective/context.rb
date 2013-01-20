@@ -18,6 +18,16 @@ module Perspective
 
     def initialize(actors={})
       actors.each { |actor| instance_variable_set("@#{actor[0]}", actor[1]) } if actors
+      stage
+    end
+
+    def self.stage(&block)
+      @stage = block if block_given?
+      @stage
+    end
+
+    def stage
+      instance_eval(&self.class.stage) if self.class.stage.is_a?(Proc)
     end
 
     def self.setup(&block)
