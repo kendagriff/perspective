@@ -17,6 +17,7 @@ module Perspective
     end
 
     def initialize(actors={})
+      binding.pry
       actors.each { |actor| instance_variable_set("@#{actor[0]}", actor[1]) }
     end
 
