@@ -33,6 +33,10 @@ module Perspective
       @interviewer.speak
       @interviewee.speak
     end
+
+    def no_interview
+      true
+    end
   end
 
   class ContextTest < ActiveSupport::TestCase
@@ -43,6 +47,10 @@ module Perspective
 
     test "respond to" do
       assert ApplyForJob.respond_to?(:interview)
+    end
+
+    test "no actor provided" do
+      assert ApplyForJob.no_interview
     end
   end
 end
