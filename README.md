@@ -4,32 +4,51 @@ Providing an attractive DSL for implementing DCI in Ruby.
 
 ## Usage
 
-```
-# Roles
-module AngryAttitude
-  def speak
-    puts "Are you any good?!?"
-  end
-end
-
-module HumbleAttitude
-  def speak
-    puts "Yes, sir, I am."
-  end
-end
-
-# Context
-class ApplyForJob < Context
-  actors :interviewer, :interviewee
-
-  setup do
-    cast :interviewer, AngryAttitude
-    cast :interviewee, HumbleAttitude
+```ruby
+module Perspective
+  module AngryAttitude
+    def speak
+      puts "Are you any good?!?"
+    end
   end
 
-  def call
-    @interviewer.speak
-    @interviewee.speak
+  module HumbleAttitude
+    def speak
+      puts "Yes, sir, I am."
+    end
   end
-end
+
+  module VeryHumbleAttitude
+    def speak
+      super
+      puts "Yes, yes, yes, sir, I am."
+    end
+  end
+
+  class ApplyForJob < Context
+    actors :interviewer, :interviewee
+
+    stage do
+      @interviewer = "Jimmy Page"
+    end
+
+    setup do
+      cast :interviewer, AngryAttitude
+      cast :interviewee, HumbleAttitude
+    end
+
+    def interview
+      cast @interviewee, VeryHumbleAttitude
+      @interviewer.speak
+      @interviewee.speak
+    end
+
+    def no_interview
+      true
+    end
+
+    def interviewer_name
+      @interviewer
+    end
+  end
 ```
