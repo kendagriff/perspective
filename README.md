@@ -27,27 +27,14 @@ end
 class ApplyForJob < Context
   actors :interviewer, :interviewee
 
-  stage do
-    @interviewer = "Jimmy Page"
-  end
-
   setup do
     cast :interviewer, AngryAttitude
     cast :interviewee, HumbleAttitude
   end
 
   def interview
-    cast @interviewee, VeryHumbleAttitude
     @interviewer.speak
     @interviewee.speak
-  end
-
-  def no_interview
-    true
-  end
-
-  def interviewer_name
-    @interviewer
   end
 end
 
