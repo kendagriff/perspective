@@ -50,10 +50,9 @@ module Perspective
         context.setup
         begin
           context.send(name)
-        rescue NoMethodError => e
-          message = "NoMethodError: #{e}"
+        rescue NoMethodError
           unset_variables = self.instance_variables.select { |v| context.instance_variable_get(v.to_s).nil? }
-          message += "\n***By the way, the following actors are unassigned: #{unset_variables.join(", ")}" if unset_variables.any?
+          puts "\n***By the way, the following actors are unassigned: #{unset_variables.join(", ")}" if unset_variables.any?
           raise
         end
       else
