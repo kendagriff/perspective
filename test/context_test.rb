@@ -81,7 +81,7 @@ module Perspective
     
     test "throws exception for missing actor" do
       assert_raise ContextError do
-        ApplyForJobInAnotherSetting.interview("Some string")
+        ApplyForJobInAnotherSetting.interview(interviewee: mock)
       end
     end
   end
