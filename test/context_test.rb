@@ -80,7 +80,7 @@ module Perspective
     end
     
     test "throws exception for missing actor" do
-      assert_raise ContextError do
+      assert_raise NoMethodError do
         ApplyForJobInAnotherSetting.interview(interviewee: mock)
       end
     end
