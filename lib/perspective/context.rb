@@ -1,4 +1,7 @@
 module Perspective
+  class ContextError < Exception
+  end
+
   class Context
     def acts(*acts)
       actors.each { |actor| instance_variable_set("@#{actor}", nil) }
@@ -18,7 +21,7 @@ module Perspective
 
     def initialize(actors={})
       stage
-      actors.each { |actor| instance_variable_set("@#{actor[0]}", actor[1]) } if actors
+      actors.each { |actor| instance_variable_set("@#{actor[0]}", actor[1]) } if actors && actors.respond_to?(:each)
     end
 
     def self.stage(&block)
@@ -45,7 +48,13 @@ module Perspective
       if self.instance_methods(false).include?(name) 
         context = new(args[0])
         context.setup
-        context.send(name)
+        begin
+          context.send(name)
+        rescue NoMethodError => e
+          message = %Q{NoMethodError: #{e}
+***By the way, the following actors are unassigned: #{self.instance_variables.select { |v| !v.nil? }.join(", ")}}
+          raise ContextError.new(message)
+        end
       else
         super
       end
@@ -62,6 +71,7 @@ module Perspective
     private
 
     def cast_as(actor, role)
+      raise ContextError.new("You cannot cast a `nil` actor in a role.") if actor.nil?
       actor.extend role
     end
   end

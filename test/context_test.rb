@@ -38,12 +38,20 @@ module Perspective
       @interviewee.speak
     end
 
+    def interviewer_name
+      @interviewer
+    end
+  end
+
+  class ApplyForJobInAnotherSetting < Context
+    actors :interviewer, :interviewee
+
     def no_interview
       true
     end
 
-    def interviewer_name
-      @interviewer
+    def interview
+      @interviewer.speak
     end
   end
 
@@ -58,11 +66,23 @@ module Perspective
     end
 
     test "no actor provided" do
-      assert ApplyForJob.no_interview
+      assert ApplyForJobInAnotherSetting.no_interview
     end
 
     test "stage" do
-      assert_equal 'Jimmy Page', ApplyForJob.interviewer_name
+      assert_equal 'Jimmy Page', ApplyForJob.interviewer_name(interviewee: mock)
+    end
+    
+    test "cannot cast nil actor" do
+      assert_raise ContextError do
+        ApplyForJob.interview("Some string")
+      end
+    end
+    
+    test "throws exception for missing actor" do
+      assert_raise ContextError do
+        ApplyForJobInAnotherSetting.interview("Some string")
+      end
     end
   end
 end
