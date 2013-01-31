@@ -48,14 +48,14 @@ module Perspective
       if self.instance_methods(false).include?(name) 
         context = new(args[0])
         context.setup
-        begin
+        # begin
           context.send(name)
-        rescue NoMethodError => e
-          message = "NoMethodError: #{e}"
-          unset_variables = self.instance_variables.select { |v| context.instance_variable_get(v.to_s).nil? }
-          message += "\n***By the way, the following actors are unassigned: #{unset_variables.join(", ")}" if unset_variables.any?
-          raise ContextError.new(message)
-        end
+        # rescue NoMethodError => e
+        #   message = "NoMethodError: #{e}"
+        #   unset_variables = self.instance_variables.select { |v| context.instance_variable_get(v.to_s).nil? }
+        #   message += "\n***By the way, the following actors are unassigned: #{unset_variables.join(", ")}" if unset_variables.any?
+        #   raise ContextError.new(message)
+        # end
       else
         super
       end
