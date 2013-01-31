@@ -52,7 +52,7 @@ module Perspective
           context.send(name)
         rescue NoMethodError
           unset_variables = self.instance_variables.select { |v| context.instance_variable_get(v.to_s).nil? }
-          puts "\n***By the way, the following actors are unassigned: #{unset_variables.join(", ")}" if unset_variables.any?
+          puts "***By the way, the following actors are unassigned: #{unset_variables.join(", ")}" if unset_variables.any?
           raise
         end
       else
